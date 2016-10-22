@@ -1,15 +1,15 @@
 var fs = require('fs')
+var path = require('path')
 
 function filterDirectiory(directoryName, extension, cb) {
     fs.readdir(directoryName, (err, files) => {
-        if (err) cb(err)
-        else {
-            var listOfFilesWithGivenExtension = files.filter((file) => {
-                var fileExtension = file.split('.')[1]
-                return fileExtension === extension
-            });
-            cb(null, listOfFilesWithGivenExtension)
-        }
+        if (err) return cb(err)
+
+        var listOfFilesWithGivenExtension = files.filter((file) => {
+            return path.extname(file) === '.' + extension
+        });
+        cb(null, listOfFilesWithGivenExtension)
+
     })
 }
 
